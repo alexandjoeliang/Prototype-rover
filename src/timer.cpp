@@ -52,10 +52,10 @@ void delaySec(unsigned int delay){
 
     while(totalCount!=delay){
         while(!(TIFR1 & (1<<OCF1A)));
-        
+        //same as timer0
         TIFR1 |= (1<<OCF1A);
         totalCount++;
     }
-
-
+    //stop timer
+    TCCR1B &= ~((1<<CS12) | (1<<CS11) | (1<<CS10));
 }
