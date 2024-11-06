@@ -1,18 +1,3 @@
-// Author:  Alex Liang
-// Net ID: 
-// Date:    10/21/24
-// Assignment:     Lab 3
-//
-// Description: This file contains a programmatic overall description of the
-// program. It should never contain assignments to special function registers
-// for the exception key one-line code such as checking the state of the pin.
-//
-// Requirements:
-//----------------------------------------------------------------------//
-
-
-
-
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include "switch.h"
@@ -41,7 +26,7 @@ volatile stateType state = wait_press;
 int main(){
 
   initTimer1();
-  initSwitchPB3();
+  initSwitchPB0();
   initTimer0();
 
   sei(); // Enable global interrupts.
