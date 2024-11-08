@@ -4,7 +4,7 @@
 #include <avr/io.h>
 
 void initLoadCell();
-void readValue();
+long readValue();
 
 
 
