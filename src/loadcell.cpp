@@ -1,4 +1,4 @@
-#include <HX711.h>
+/*#include <HX711.h>
 #include "loadcell.h"
 
 #include <avr/io.h>
@@ -22,4 +22,4 @@ long readValue(){
 }
 
 
-
+*/

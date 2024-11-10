@@ -1,4 +1,4 @@
-#ifndef loadcell_h
+/*#ifndef loadcell_h
 #define loadcell_h
 
 #include <avr/io.h>
@@ -10,3 +10,4 @@ long readValue();
 
 
 #endif
+*/
