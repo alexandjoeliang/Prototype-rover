@@ -1,22 +1,31 @@
-/* Example sketch to control a stepper motor with L298N motor driver, Arduino UNO and AccelStepper.h library. Contiuous rotation. More info: https://www.makerguides.com */
+#include <Arduino.h>
+#include <avr/interrupt.h>
+#include <avr/io.h>
+#include "timer.h"
+#include <Servo.h>
+  // create Servo object to control a servo
+// twelve Servo objects can be created on most boards
+   // variable to store the servo position
 
-// Include the AccelStepper library:
-#include "AccelStepper.h"
 
-// Define the AccelStepper interface type:
-#define MotorInterfaceType 4
+  // attaches the servo on pin 9 to the Servo object
 
-// Create a new instance of the AccelStepper class:
-AccelStepper stepper = AccelStepper(MotorInterfaceType, 8, 9, 10, 11);
 
-void setup() {
-  // Set the maximum speed in steps per second:
-  stepper.setMaxSpeed(1000);
-}
-
-void loop() {
-  // Set the speed of the motor in steps per second:
-  stepper.setSpeed(1000);
-  // Step the motor with constant speed as set by setSpeed():
-  stepper.runSpeed();
+int main(){
+  Servo myservo;
+  myservo.attach(9);
+  initTimer0();
+  int pos = 0; 
+  while(1) {
+    for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
+      // in steps of 1 degree
+      myservo.write(pos);              // tell servo to go to position in variable 'pos'
+      delayMs(15);                       // waits 15 ms for the servo to reach the position
+    }
+    for (pos = 180; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
+      myservo.write(pos);              // tell servo to go to position in variable 'pos'
+      delayMs(15);                       // waits 15 ms for the servo to reach the position
+    }
+  }
+  return 0;
 }

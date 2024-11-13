@@ -1,11 +1,9 @@
 #include "switch.h"
 #include <avr/io.h>
 
-/*
- * Initializes pull-up resistor on PB3 and sets it into input mode
- */
-void initSwitchPB0(){
-    DDRB &= ~(1<<DDB0); //input
-    PORTB |= (1<<PORTB0); //enable pullup
-    PCMSK0 |= (1<<PCINT0); //enable int0
+void initSwitchPD0(){
+    DDRD &= ~(1<<DDD0); //input
+    PORTD |= (1<<PORTD0); //enable pullup
+    EIMSK |= (0x00) | (1<<INT0); //enable int0
 }
+
