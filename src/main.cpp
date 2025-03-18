@@ -1,26 +1,6 @@
-/*
-Author  : Andrea Lombardo
-Site    : https://www.lombardoandrea.com
-Source  : https://github.com/AndreaLombardo/L298N/
+//water level
 
-Here you can see how to work in a common configuration without the needed of Enable pin. 
 
-Make sure your module has a jumper in place.
-
-When L298N has a jumper instead of Enable pin, the speed is always 255.
-
-Wiring schema in file "L298N - Schema_without_EN_pin.png"
-*/
-
-// Include the library
-#include <L298N.h>
-
-// Pin definition
-const unsigned int IN1 = 2;
-const unsigned int IN2 = 3;
-
-// Create one motor instance
-L298N motor(IN1, IN2);
 
 void setup()
 {
