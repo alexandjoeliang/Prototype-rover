@@ -1,36 +1,29 @@
-//water level
 
-#include <Arduino.h>
+#include <Adafruit_MLX90614.h>
 
-void setup()
-{
-  // Used to display information
+Adafruit_MLX90614 mlx = Adafruit_MLX90614();
+
+void setup() {
   Serial.begin(115200);
+  while (!Serial);
 
-  // Wait for Serial Monitor to be opened
+  Serial.println("Adafruit MLX90614 test");
 
+  if (!mlx.begin()) {
+    Serial.println("Error connecting to MLX sensor. Check wiring.");
+    while (1);
+  };
+
+  Serial.print("Emissivity = "); Serial.println(mlx.readEmissivity());
+  Serial.println("================================================");
 }
 
-void loop()
-{
+void loop() {
+  Serial.print("Ambient = "); Serial.print(mlx.readAmbientTempC());
+  Serial.print("*C\tObject = "); Serial.print(mlx.readObjectTempC()); Serial.println("*C");
+  Serial.print("Ambient = "); Serial.print(mlx.readAmbientTempF());
+  Serial.print("*F\tObject = "); Serial.print(mlx.readObjectTempF()); Serial.println("*F");
 
-  int value = analogRead(A0);
-  
-  Serial.print("Value :");
-  Serial.print(value);
-  Serial.print("   ");
-  Serial.print("W Level :");
-
-
-  if (value == 0) {
-    Serial.print("Empty ");
-  } else if (value > 1 && value < 400) {
-    Serial.print("LOW   ");
-  } else if (value > 350 && value < 480) {
-    Serial.print("Medium");
-  } else if (value > 480){
-    Serial.print("HIGH  ");
-  }
-  Serial.print("\n");
- delay(2000);
+  Serial.println();
+  delay(2000);
 }
