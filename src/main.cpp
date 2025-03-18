@@ -1,61 +1,36 @@
 //water level
 
-
+#include <Arduino.h>
 
 void setup()
 {
   // Used to display information
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   // Wait for Serial Monitor to be opened
-  while (!Serial)
-  {
-    //do nothing
-  }
+
 }
 
 void loop()
 {
 
-  // Tell the motor to go forward (may depend by your wiring)
-  motor.forward();
+  int value = analogRead(A0);
+  
+  Serial.print("Value :");
+  Serial.print(value);
+  Serial.print("   ");
+  Serial.print("W Level :");
 
-  // Alternative method:
-  // motor.run(L298N::FORWARD);
 
-  //print the motor status in the serial monitor
-  Serial.print("Is moving = ");
-  Serial.println(motor.isMoving());
-
-  delay(3000);
-
-  // Stop
-  motor.stop();
-
-  // Alternative method:
-  // motor.run(L298N::STOP);
-
-  Serial.print("Is moving = ");
-  Serial.println(motor.isMoving());
-
-  delay(3000);
-
-  // Tell the motor to go back (may depend by your wiring)
-  motor.backward();
-
-  // Alternative method:
-  // motor.run(L298N::BACKWARD);
-
-  Serial.print("Is moving = ");
-  Serial.println(motor.isMoving());
-
-  delay(3000);
-
-  // Stop
-  motor.stop();
-
-  Serial.print("Is moving = ");
-  Serial.println(motor.isMoving());
-
-  delay(3000);
+  if (value == 0) {
+    Serial.print("Empty ");
+  } else if (value > 1 && value < 400) {
+    Serial.print("LOW   ");
+  } else if (value > 350 && value < 480) {
+    Serial.print("Medium");
+  } else if (value > 480){
+    Serial.print("HIGH  ");
+  }
+  Serial.print("\n");
+ delay(2000);
 }
