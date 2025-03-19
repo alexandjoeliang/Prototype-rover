@@ -1,29 +1,22 @@
 
-#include <Adafruit_MLX90614.h>
+#include <Arduino.h>
 
-Adafruit_MLX90614 mlx = Adafruit_MLX90614();
+int ledPin = 9;
 
-void setup() {
-  Serial.begin(115200);
-  while (!Serial);
+int main(){
 
-  Serial.println("Adafruit MLX90614 test");
 
-  if (!mlx.begin()) {
-    Serial.println("Error connecting to MLX sensor. Check wiring.");
-    while (1);
-  };
+TCCR1A = (1 << WGM11) | (1 << COM1A1); // Fast PWM, non-inverting mode
+  TCCR1B = (1 << WGM13) | (1 << WGM12) | (1 << CS11); // Fast PWM, prescaler = 8
+  ICR1 = 1999; // Set TOP value for 1 kHz
+  OCR1A = 1999;
 
-  Serial.print("Emissivity = "); Serial.println(mlx.readEmissivity());
-  Serial.println("================================================");
+
+while(1){
+
+
+
 }
 
-void loop() {
-  Serial.print("Ambient = "); Serial.print(mlx.readAmbientTempC());
-  Serial.print("*C\tObject = "); Serial.print(mlx.readObjectTempC()); Serial.println("*C");
-  Serial.print("Ambient = "); Serial.print(mlx.readAmbientTempF());
-  Serial.print("*F\tObject = "); Serial.print(mlx.readObjectTempF()); Serial.println("*F");
 
-  Serial.println();
-  delay(2000);
 }
