@@ -25,7 +25,7 @@ L298N motor(IN1, IN2);
 void setup()
 {
   // Used to display information
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   // Wait for Serial Monitor to be opened
   while (!Serial)
