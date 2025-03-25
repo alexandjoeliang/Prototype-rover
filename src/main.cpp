@@ -1,22 +1,32 @@
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
-#include <Arduino.h>
+void setupTimer1() {
+    // Set CTC mode
+    TCCR1B |= (1 << WGM12);
 
-int ledPin = 9;
+    // Set prescaler to 64
+    TCCR1B |= (1 << CS11) | (1 << CS10);
 
-int main(){
+    // Set compare match value for 1kHz
+    OCR1A = 249;
 
+    // Enable compare match interrupt
+    TIMSK1 |= (1 << OCIE1A);
 
-TCCR1A = (1 << WGM11) | (1 << COM1A1); // Fast PWM, non-inverting mode
-  TCCR1B = (1 << WGM13) | (1 << WGM12) | (1 << CS11); // Fast PWM, prescaler = 8
-  ICR1 = 1999; // Set TOP value for 1 kHz
-  OCR1A = 1999;
-
-
-while(1){
-
-
-
+    // Enable global interrupts
+    sei();
 }
 
+ISR(TIMER1_COMPA_vect) {
+    // Code to execute on every timer interrupt
+}
 
+int main() {
+    // Initialize Timer1
+    setupTimer1();
+
+    while (1) {
+        // Main loop
+    }
 }
