@@ -1,32 +1,42 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <Arduino.h>
 
-void setupTimer1() {
-    // Set CTC mode
-    TCCR1B |= (1 << WGM12);
+int delayTime = 60UL * 60UL * 1000UL; //1 hour delay
+//int delayTime = 5000; //5 seconds delay (for testing only)
 
-    // Set prescaler to 64
-    TCCR1B |= (1 << CS11) | (1 << CS10);
+int RelayPin1 = 11; //connect relay module's pin 1 to pin 11 of Arduino
+int RelayPin2 = 12; //connect relay module's pin 2 to pin 12 of Arduino
 
-    // Set compare match value for 1kHz
-    OCR1A = 249;
-
-    // Enable compare match interrupt
-    TIMSK1 |= (1 << OCIE1A);
-
-    // Enable global interrupts
-    sei();
+void forward() {
+  digitalWrite(RelayPin1, LOW); //normally, giving LOW to relay will make it turn off
+  digitalWrite(RelayPin2, HIGH); //and giving HIGH will make it turn on (active low)
 }
 
-ISR(TIMER1_COMPA_vect) {
-    // Code to execute on every timer interrupt
+void reverse() {
+  digitalWrite(RelayPin2, LOW);
+  digitalWrite(RelayPin1, HIGH);
 }
 
-int main() {
-    // Initialize Timer1
-    setupTimer1();
+void stopmotor() {
+  digitalWrite(RelayPin1, LOW);  //so giving HIGH to both relays will make the relays turn off, and stop the motor
+  digitalWrite(RelayPin2, LOW);
+}
 
-    while (1) {
-        // Main loop
-    }
+void setup() {
+  pinMode(RelayPin1, OUTPUT);
+  pinMode(RelayPin2, OUTPUT);
+  Serial.begin(115200);
+}
+
+void loop() {
+
+    forward(); //motor turns forward
+    Serial.print("forward");
+      delay(5000);
+
+    stopmotor(); //motor turns reverse
+    Serial.print("backwards");
+      delay(5000);
+  
 }
