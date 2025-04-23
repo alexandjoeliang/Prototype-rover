@@ -8,18 +8,22 @@ void servoSetup() {
 }
 
 void servoLoop() {
-  for (int pos = 114; pos <= 25 + 114; pos += 1) {
+
+  for (int pos = 67; pos <= 20 + 67; pos += 1) {
     myservo.write(pos);
     delay(15); 
   }
-  for (int pos = 114 + 25; pos >= 114 - 25; pos -= 1) {
+  delay(1000);
+  for (int pos = 67 + 20; pos >= 67 - 22; pos -= 1) {
     myservo.write(pos);
     delay(15);
   }
-  for (int pos = 114 - 25; pos <= 114; pos += 1) {
+  delay(1000);
+  for (int pos = 67 - 20; pos <= 67; pos += 1) {
     myservo.write(pos);
     delay(15); 
   }
+  delay(1000);
 }
 
 int main(){
